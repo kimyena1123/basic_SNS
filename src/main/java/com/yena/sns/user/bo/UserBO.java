@@ -29,11 +29,13 @@ public class UserBO {
 		
 		//count == 0이면 중복 없음
 		//count == 1이면 중복 있음
-		if(count == 0) {
-			return true; //아이디 사용 가능
-		}else {
-			return false; //아이디 사용 불가능
-		}
+//		if(count == 0) {
+//			return true; //아이디 사용 가능
+//		}else {
+//			return false; //아이디 사용 불가능
+//		}
+		
+		return count != 0;
 	}
 	
 	//이메일 중복 검사(select)
