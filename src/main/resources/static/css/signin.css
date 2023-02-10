@@ -1,0 +1,57 @@
+@charset "UTF-8";
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+section {
+	width: 100%;
+	height: 88%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+section .squareBox{
+	width: 40%;
+	height: 60%;
+	border: 1px solid black;
+}
+section .mainText h1{
+	margin-top: 35px;
+	text-align: center;
+	font-size: 53px;
+}
+section .inputTags{
+	margin: 0 auto;
+	margin-top: 40px;
+	width: 80%;
+	display: flex;
+	flex-direction: column;
+}
+section .inputTags input{
+	height: 50px;
+	margin: 15px 0;
+}
+
+section #loginBtn{
+	margin-top: 20px;
+	height: 50px;
+	background-color: #3498DB;
+	color: white;
+	font-size: 25px;
+	font-weight: 600;
+	border: none;
+	padding: 7px 0;
+}
+section .signupBox{
+	width: 80%;
+	margin: 0 auto;
+	margin-top: 25px;
+	font-size: 19px;
+}
+section .signupBox a{
+	color: #C0398B;
+	text-decoration: none;
+	font-weight: 600;
+}
