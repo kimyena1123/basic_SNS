@@ -6,6 +6,19 @@
   
 <mapper namespace="com.yena.sns.user.dao.UserDAO">
 
+	<select id="selectAllInfo"
+			resultType="com.yena.sns.user.model.User">
+		SELECT
+			`id`
+			,`user_id`
+			,`user_pw`
+			,`user_name`
+			,`user_birth`
+			,`user_email`
+			,createdAt
+			,updatedAt
+	</select>
+
 	<insert id="insertSignup"
 			parameterType="map">
 		INSERT INTO

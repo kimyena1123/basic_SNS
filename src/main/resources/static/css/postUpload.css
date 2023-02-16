@@ -1,0 +1,124 @@
+@charset "UTF-8";
+
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+.conatiner{
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+}
+section{
+	width: 100%;
+	height: 100%;
+}
+section .postBox{
+	width: 50%;
+	height: 80%;
+	border: 1px solid black;
+	margin: 0 auto;
+	margin-top: 70px;
+	display: flex;
+	flex-direction: column;
+}
+section .userDataDiv{
+	width: 100%;
+	height: 15%;
+	border: 1px solid red;
+	display: flex;
+	align-items: center;
+}
+section .userDataDiv .userProfileImg{
+	width: 80px;
+	height: 85%;
+	border: 1px solid black;
+	border-radius: 50%;
+	margin: 0 15px;
+}
+section .userDataDiv p{
+	font-size: 20px;
+}
+section .postContents{
+	width: 95%;
+	height: 65%;
+	border: 1px solid blue;
+	margin: 0 auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+section .postContents .textContent{
+	width: 100%;
+	height: 45%;
+	border: 1px solid purple;
+	margin-top: 15px;
+}
+section .postContents .textContent textarea{
+	width: 100%;
+	height: 100%;
+}
+section .postContents .fileImgs{
+	width: 100%;
+	height: 45%;
+	border: 1px solid skyblue;
+	margin-bottom: 15px;
+	display: flex;
+	align-items: center;
+}
+section .postContents .fileImgs .inputImgs{
+	border: 1px solid red;
+	width: 100%;
+	height: 100%;
+	padding-left: 15px;
+	margin: 0 auto;
+	overflow: auto;
+}
+section .postContents .fileImgs img{
+	border: 1px solid black;
+	width: 180px;
+	height: 180px;
+	margin: 0 10px;
+}
+section .uploadBtns{
+	width: 95%;
+	height: 20%;
+	border: 1px solid orange;
+	margin: 0 auto;
+	display: flex;
+	flex-direction: column;
+}
+
+section .uploadBtns .fileBtns{
+	display: flex;
+	border: 1px solid pink;
+	margin: 15px 0;
+}
+section .uploadBtns .fileBtn{
+	width: 75%;
+	height: 40px;
+	border: 1px solid red;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+section .uploadBtns .selectBtn{
+	width: 25%;
+	height: 40px;
+	margin-left: 20px;
+}
+section .uploadBtns input[type="file"]{
+	position: absolute;
+	width: 0;
+	height: 0;
+	padding: 0;
+	overflow: hidden;
+	border: 0;
+}
+section .uploadBtns .uploadBtn{
+	width: 100%;
+	height: 40px;
+	
+}

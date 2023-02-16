@@ -2,13 +2,20 @@ package com.yena.sns.post.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.yena.sns.post.model.Post;
 
 @Repository
 public interface PostDAO {
-
-	//마이페이지 - 사용자가 올린 모든 게시물에 대한 정보
-	public List<Post> selectPost();
+	
+	public List<Post> selectAllInfo();
+	
+	
+	//게시물 올리기(insert)
+	public int postUpload(
+			@Param("user_index") int user_index
+			,@Param("post_content") String post_content
+			,@Param("imagePath") String imagePath);
 }

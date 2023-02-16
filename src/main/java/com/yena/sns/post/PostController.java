@@ -1,5 +1,6 @@
 package com.yena.sns.post;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,22 +18,35 @@ public class PostController {
 	
 	@Autowired
 	private PostBO postBO;
+	
 
 	//메인페이지
 	@GetMapping() //기본 주소 localhost:port/sns/post
-	public String main() {
+	public String main(Model model) {
+		List<Post> list = new ArrayList<>();
+		
+		Post info = new Post();
+		//1. user 테이블
+		list.add(info);
+		
+		info = new Post();
+		//2. comment 테이블
+		list.add(info);
+		
+		info = new Post();
+		//3. like 테이블
+		list.add(info);
+		
+		model.addAttribute("list", list);
 		
 		return "post/main";
 	}
+
 	
-	//마이페이지 - 모든 데이터 조회
-	@GetMapping("/mypage")
-	public String mypage(Model model) {
+	//게시물 upload 페이지
+	@GetMapping("/postUpload/view")
+	public String postUpload() {
 		
-		List<Post> userPostList = postBO.getPostList();
-		
-		model.addAttribute("userPostList", userPostList);
-		
-		return "post/mypage";
+		return "post/postUpload";
 	}
 }

@@ -1,0 +1,133 @@
+@charset "UTF-8";
+
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+.container{
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+}
+section{
+	width: 100%;
+	height: 100%;
+	overflow-y: scroll;
+}
+section .mainBox{
+	width: 30%;
+	height: 80%;
+	border: 1px solid black;
+	margin: 0 auto;
+	margin-top: 70px;
+	margin-bottom: 50px;
+	display: flex;
+	flex-direction: column;
+}
+section .userDataDiv{
+	width: 100%;
+	height: 12%;
+	border: 1px solid red;
+	display: flex;
+	justify-content: space-between;
+}
+section .showUserInfo{
+	width: 80%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+}
+.bi-three-dots-vertical{
+	margin-top: 12px;
+	margin-right: 5px;
+}
+section .userDataDiv .userProfileImg{
+	width: 62px;
+	height: 62px;
+	border: 1px solid black;
+	border-radius: 50%;
+	margin: 0 15px;
+}
+section .userDataDiv p{
+	font-size: 20px;
+}
+
+section .postImgs{
+	width: 100%;
+	height: 60%;
+	border: 1px solid black;
+}
+section .postImgs .showImgs{
+	width: 100%;
+	height: 100%;
+}
+section .userInputs{
+	width: 100%;
+	height: 28%;
+	border: 1px solid red;
+}
+.userInputs .likeInfos{
+	width: 100%;
+	height: 30%;
+	display: flex;
+	align-items: end;
+}
+.userInputs .likeInfos .icons{
+	height: 100%;
+	margin-top: 3px;
+	margin-left: 10px;
+}
+.likeCounts{
+	margin-bottom: 12px;
+	margin-left: 10px;
+	font-size: 14px;
+}
+.bi-heart-fill{
+	color: red;
+}
+.bi-chat-square-dots{
+	margin-left: 10px;
+}
+
+.userInputs .userPostUpload{
+	width: 100%;
+	height: 37%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	margin-left: 13px;
+}
+.userInputs .userPostUpload .comment{
+	width: 100%;
+	display: flex;
+}
+.userInputs .userPostUpload .comment .user_id{
+	margin-right: 10px;
+	font-size: 20px;
+	font-weight: 600;
+}
+.userInputs .userPostUpload .comment .post_comment{
+	font-size: 20px;
+}
+.userInputs .commentInputs{
+	width: 100%;
+	height: 30%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0 15px;
+}
+.commentInputs #comment_comment{
+	width: 410px;
+	height: 30px;
+	padding-left: 10px;
+}
+.bi-envelope-open-fill{
+	margin-bottom: 14px;
+}
+.bi-arrow-up-circle-fill{
+	margin-bottom: 10px;
+	margin-right: 10px;
+}

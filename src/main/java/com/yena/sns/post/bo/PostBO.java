@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.yena.sns.common.FileManagerService;
 import com.yena.sns.post.dao.PostDAO;
 import com.yena.sns.post.model.Post;
 
@@ -13,10 +15,27 @@ public class PostBO {
 	@Autowired
 	private PostDAO postDAO;
 	
-	//마이페이지 - 사용자에 대한 모든 게시물 데이터 조회
-	public List<Post> getPostList(){
-		List<Post> userPostList = postDAO.selectPost();
+	//메인 페이지
+	public List<Post> selectAllInfo(){
+		List<Post> list = postDAO.selectAllInfo();
 		
-		return userPostList;
+		return list;
+	}
+	
+	//게시물 올리기 API(insert)
+	public int postUpload(int user_index, String post_content, MultipartFile post_file) {
+		
+		System.out.println("<BO> file check >> "+ post_file);
+		
+		if(post_file != null) { // 사용자가 파일을 올렸을 때
+			
+			String imagePath = FileManagerService.saveFile(user_index, post_file);			
+			return postDAO.postUpload(user_index, post_content, imagePath);
+			
+		}else { // 사용자가 파일 없이 게시물 올렸을 때
+			
+			return postDAO.postUpload(user_index, post_content, null);
+		}
+		
 	}
 }

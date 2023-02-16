@@ -23,13 +23,14 @@
 					<h1>Stargram</h1>
 				</div>
 				
-				<div class="inputTags">
+				<form id="loginForm">
+					<div class="inputTags">
+						<input type="text" id="user_id" name="user_id" placeholder="아이디" autocomplete="off">
+						<input type="password" id="user_pw" name="user_pw" placeholder="비밀번호" autocomplete="off">
 			
-					<input type="text" id="user_id" name="user_id" placeholder="아이디" autocomplete="off">
-					<input type="password" id="user_pw" name="user_pw" placeholder="비밀번호" autocomplete="off">
-		
-					<button type="submit" id="loginBtn">로그인</button>
-				</div>
+						<button type="submit" id="loginBtn">로그인</button>
+					</div>
+				</form>
 				
 				<div class="signupBox">
 					<p>
@@ -45,7 +46,15 @@
 		$(document).ready(function(){
 			
 			//로그인 버튼 누를 때
-			$("#loginBtn").on("click", function(){
+			$("#loginForm").on("submit", function(e){
+			//$("#loginBtn").on("click", function(){
+				
+				//해당 이벤트의 기능을 모두 취소한다
+				//preventDefault : 브라우저에서 구현된 기본 동작을 취소해준다.
+    			//폼 이벤트 : 폼이 제출되면 새로고침되는 기본동작을 취소
+				e.preventDefault();
+				
+				
 				let user_id = $("#user_id").val();
 				let user_pw = $("#user_pw").val();
 				

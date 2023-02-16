@@ -22,10 +22,9 @@ header .logo{
 	display: flex;
 	align-items: center;
 }
-header img{
+.bi-instagram{
 	margin-left: 20px;
-	width: 80px;
-	height: 80px;
+	margin-bottom: 20px;
 }
 header h1{
 	margin-left: 20px;
@@ -49,5 +48,8 @@ header .userNameShow h2{
 }
 
 header .icons{
+	margin: 0 10px;
+}
+.notSignin, .loginSuccess{
 	margin: 0 10px;
 }

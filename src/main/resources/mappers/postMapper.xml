@@ -5,16 +5,40 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.yena.sns.post.dao.PostDAO">
-	<select id="selectPost"
+	<select id="selectAllInfo"
 			resultType="com.yena.sns.post.model.Post">
 		SELECT
-			`id`
-			,`userId`
+			user.user_id
+			,post.img_src
+			,comment.comment
+		FROM 
+			`post`
+		JOIN 
+			`user` ON user.id = post.userId
+		JOIN 
+			`comment` ON post.id = comment.postId
+	</select>
+	
+	<insert id="postUpload"
+			parameterType="map">
+		INSERT INTO
+			`post`
+		(
+			`userId`
 			,`content`
 			,`img_src`
 			,`createdAt`
 			,`updatedAt`
-		FROM
-			`post`
-	</select>
+		)
+		VALUE
+		(
+			#{user_index}
+			,#{post_content}
+			,#{imagePath}
+			,now()
+			,now()
+		)
+	</insert>
+	
+	
 </mapper>
