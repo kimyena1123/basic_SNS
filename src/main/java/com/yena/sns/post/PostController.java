@@ -23,21 +23,9 @@ public class PostController {
 	//메인페이지
 	@GetMapping() //기본 주소 localhost:port/sns/post
 	public String main(Model model) {
-		List<Post> list = new ArrayList<>();
+		List<Post> postList = postBO.selectPostInfo();
 		
-		Post info = new Post();
-		//1. user 테이블
-		list.add(info);
-		
-		info = new Post();
-		//2. comment 테이블
-		list.add(info);
-		
-		info = new Post();
-		//3. like 테이블
-		list.add(info);
-		
-		model.addAttribute("list", list);
+		model.addAttribute("postList", postList);
 		
 		return "post/main";
 	}

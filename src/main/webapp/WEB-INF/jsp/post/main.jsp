@@ -21,9 +21,13 @@
 		<c:import url="/WEB-INF/jsp/include/header.jsp" />
 		
 		<section>
+		<!--  <h1>${postList.size() }</h1>-->
+		
+		<c:forEach var="post" items="${postList }">
 			<div class="mainBox">
 				<div class="userDataDiv">
 					<div class="showUserInfo">
+					
 						<img src="#" class="userProfileImg">
 						<p>userName</p>
 					</div>
@@ -32,13 +36,13 @@
 				</div>
 				
 				<div class="postImgs">
-					<img src="#" class="showImgs">
+					<img src="${post.img_src }" class="showImgs">
 				</div>
 				
 				<div class="userInputs">
 					<div class="likeInfos">
 						<div class="icons">
-							<i class="heartClass bi bi-heart fa-2x"></i>
+							<i class="heartClass bi bi-heart fa-2x heart${post.id }" data-post-name="heart${ post.id}"></i>
 							<!-- <i class="bi bi-heart-fill fa-2x"></i> -->
 							<i class="bi bi-chat-square-dots fa-2x"></i>
 						</div>
@@ -48,9 +52,9 @@
 					<div class="userPostUpload">
 						<div class="comment">
 							<span class="user_id">user_id</span>
-							<p class="post_comment">comment</p>
+							<p class="post_comment">${post.content }</p>
 						</div>
-						<p class="uploadTime">등록일: 0000/00/00</p>
+						<p class="uploadTime">등록일: <fmt:formatDate value="${post.createdAt }" pattern="yyyy년 MM월 dd일" /></p>
 					</div>
 					
 					<div class="commentInputs">
@@ -60,58 +64,27 @@
 					</div>
 				</div>
 			</div>
+		</c:forEach>
 			
 			
 			
-			<div class="mainBox">
-				<div class="userDataDiv">
-					<div class="showUserInfo">
-						<img src="#" class="userProfileImg">
-						<p>userName</p>
-					</div>
-					
-					<i class="bi bi-three-dots-vertical fa-2x"></i>
-				</div>
-				
-				<div class="postImgs">
-					<img src="#" class="showImgs">
-				</div>
-				
-				<div class="userInputs">
-					<div class="likeInfos">
-						<div class="icons">
-							<i class="heartClass bi bi-heart fa-2x"></i>
-							<!-- <i class="bi bi-heart-fill fa-2x"></i> -->
-							<i class="bi bi-chat-square-dots fa-2x"></i>
-						</div>
-						<p class="likeCounts">좋아요 100개</p>
-					</div>
-					
-					<div class="userPostUpload">
-						<div class="comment">
-							<span class="user_id">user_id</span>
-							<p class="post_comment">comment</p>
-						</div>
-						<p class="uploadTime">등록일: 0000/00/00</p>
-					</div>
-					
-					<div class="commentInputs">
-						<i class="bi bi-envelope-open-fill fa-2x"></i>
-						<input type="text" id="comment_comment" name="comment_comment" placeholder="댓글달기">
-						<i class="bi bi-arrow-up-circle-fill fa-2x"></i>
-					</div>
-				</div>
-			</div>
 			
 		</section>
 	</div>
 	
 	<script>
 		$(document).ready(function(){
+			
 			$(".heartClass").on("click", function(){
+			
+				//클래스가 heart1, heart2, heart3 ... 
+			
+				let heart = $(this).data("postName");
 				
-				$(".heartClass").toggleClass( 'bi-heart' );
-				$(".heartClass").toggleClass( 'bi-heart-fill' );
+				//alert(heart);
+				
+				$("."+ heart).toggleClass( 'bi-heart' );
+				$("."+ heart).toggleClass( 'bi-heart-fill' );
 			})
 		})
 	</script>

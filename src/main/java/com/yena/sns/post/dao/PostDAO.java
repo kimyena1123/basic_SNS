@@ -10,8 +10,7 @@ import com.yena.sns.post.model.Post;
 @Repository
 public interface PostDAO {
 	
-	public List<Post> selectAllInfo();
-	
+	public List<Post> selectPostInfo();
 	
 	//게시물 올리기(insert)
 	public int postUpload(

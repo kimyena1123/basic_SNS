@@ -16,10 +16,10 @@ public class PostBO {
 	private PostDAO postDAO;
 	
 	//메인 페이지
-	public List<Post> selectAllInfo(){
-		List<Post> list = postDAO.selectAllInfo();
+	public List<Post> selectPostInfo(){
+		List<Post> post = postDAO.selectPostInfo();
 		
-		return list;
+		return post;
 	}
 	
 	//게시물 올리기 API(insert)

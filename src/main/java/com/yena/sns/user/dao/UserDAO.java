@@ -9,8 +9,6 @@ import com.yena.sns.user.model.User;
 
 @Repository
 public interface UserDAO {
-	//user의 모든 정보
-	public List<User> selectAllInfo();
 	
 	//회원가입
 	public int insertSignup(
