@@ -28,12 +28,9 @@ public class PostRestController {
 	//게시물 upload
 	@PostMapping("/upload")
 	public Map<String, Boolean> postUpload(
-			HttpServletRequest request
+			HttpSession session
 			,@RequestParam("post_content") String post_content
 			,@RequestParam(value="post_file", required = false) MultipartFile post_file){
-		
-		//로그인된 사용자의 user 테이블 id 값
-		HttpSession session = request.getSession();
 		
 		int user_index = (Integer)session.getAttribute("session_index");
 		
@@ -51,6 +48,5 @@ public class PostRestController {
 		
 		return result;
 	}
-	
 
 }

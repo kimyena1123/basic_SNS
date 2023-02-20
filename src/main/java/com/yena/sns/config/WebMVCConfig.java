@@ -17,5 +17,6 @@ public class WebMVCConfig implements WebMvcConfigurer{
 		//images로 시작하고 그 뒤에 따라오는 모든 것
 		registry.addResourceHandler("/images/sns/**")
 		.addResourceLocations("file:///" + FileManagerService.PILE_UPLOAD_PATH + "/");
+								//리눅스 기반이라서 슬래스/ 하나 더 붙어서 3개.
 	}
 }

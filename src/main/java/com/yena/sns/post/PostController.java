@@ -1,6 +1,5 @@
 package com.yena.sns.post;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yena.sns.post.bo.PostBO;
-import com.yena.sns.post.model.Post;
+import com.yena.sns.post.model.PostDetail;
 
 @RequestMapping("/sns/post")
 @Controller
@@ -23,7 +22,8 @@ public class PostController {
 	//메인페이지
 	@GetMapping() //기본 주소 localhost:port/sns/post
 	public String main(Model model) {
-		List<Post> postList = postBO.selectPostInfo();
+		
+		List<PostDetail> postList = postBO.getMainInfo();
 		
 		model.addAttribute("postList", postList);
 		

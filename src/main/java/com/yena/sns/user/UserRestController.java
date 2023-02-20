@@ -50,14 +50,21 @@ public class UserRestController {
 	public Map<String, Boolean> checkId(
 			@RequestParam("user_id") String user_id){
 	
+		boolean result = userBO.checkId(user_id);
+		//0이면 false
+		//0이 아닌 수는 true
+		
 		Map<String, Boolean> id = new HashMap<>();
 		
 		//userBO.checkId(user_id) == true이면 사용 가능
 		//userBO.checkId(user_id) == false이면 사용 불가능
-		if(userBO.checkId(user_id)) { // true
-			id.put("id", true); // 중복없음
-		}else {
-			id.put("id", false);
+		
+		System.out.println("restController result check >> " + result);
+		
+		if(result) { //0이 아닌 수 => 중복임
+			id.put("id", false); 
+		}else { //false라는 건 0이라는 의미. => 중복 아님
+			id.put("id", true);
 		}
 		
 		return id;

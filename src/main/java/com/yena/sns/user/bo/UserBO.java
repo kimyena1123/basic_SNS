@@ -11,6 +11,12 @@ import com.yena.sns.user.model.User;
 public class UserBO {
 	@Autowired
 	private UserDAO userDAO;
+	
+	//user 정보 넘기기
+	public User getUserById(int id) { // 한 행에 대한 정보
+		
+		return userDAO.selectUserById(id);
+	}
 
 	//회원가입 (insert)
 	public int addSignup(
@@ -34,8 +40,11 @@ public class UserBO {
 //		}else {
 //			return false; //아이디 사용 불가능
 //		}
+		System.out.println("bo에서 count 확인 >> " + count);
 		
-		return count != 0;
+		//0이면 중복 X
+		//0이 아니면 중복O
+		return count != 0; 
 	}
 	
 	//이메일 중복 검사(select)

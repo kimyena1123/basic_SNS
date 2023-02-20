@@ -17,6 +17,8 @@
 			,`updatedAt`
 		FROM 
 			`post`s
+		ORDER BY
+			`id` DESC;
 	</select>
 	
 	

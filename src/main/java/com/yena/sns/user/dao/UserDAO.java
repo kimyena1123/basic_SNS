@@ -10,6 +10,9 @@ import com.yena.sns.user.model.User;
 @Repository
 public interface UserDAO {
 	
+	//user 정보 넘기기
+	public User selectUserById(@Param("id") int id);
+	
 	//회원가입
 	public int insertSignup(
 			@Param("user_id") String user_id

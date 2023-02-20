@@ -31,9 +31,9 @@
 		
 		<c:otherwise>
 			<div class="userSelect">
-				<a href="/sns/user/signup/view"><i class="bi bi-person-plus fa-4x notSignin"></i></a>
-				<a href="/sns/user/signin/view"><i class="bi bi-person-check fa-4x notSignin"></i></a>
-				<a href="/sns/post"><i class="bi bi-house-door fa-4x notSignin"></i></a>
+				<a href="/sns/user/signup/view"><i class="bi bi-person-plus fa-3x notSignin"></i></a>
+				<a href="/sns/user/signin/view"><i class="bi bi-person-check fa-3x notSignin"></i></a>
+				<a href="/sns/post"><i class="bi bi-house-door fa-3x notSignin"></i></a>
 			
 				<!--폰트어위썸: <div class="icons"><a href="#"><i class="fas fa-home fa-3x"></i></a></div> -->
 			</div>

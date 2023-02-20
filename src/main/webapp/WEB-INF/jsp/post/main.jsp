@@ -29,7 +29,7 @@
 					<div class="showUserInfo">
 					
 						<img src="#" class="userProfileImg">
-						<p>userName</p>
+						<p>${post.user_name }</p>
 					</div>
 					
 					<i class="bi bi-three-dots-vertical fa-2x"></i>
@@ -44,7 +44,7 @@
 						<div class="icons">
 							<i class="heartClass bi bi-heart fa-2x heart${post.id }" data-post-name="heart${ post.id}"></i>
 							<!-- <i class="bi bi-heart-fill fa-2x"></i> -->
-							<i class="bi bi-chat-square-dots fa-2x"></i>
+							<i class="bi bi-chat-square-dots fa-2x btn-open-popup" data-modal-Id="${ post.id}" data-modal-content="${post.content }"></i>
 						</div>
 						<p class="likeCounts">좋아요 100개</p>
 					</div>
@@ -62,13 +62,27 @@
 						<input type="text" id="comment_comment" name="comment_comment" placeholder="댓글달기">
 						<i class="bi bi-arrow-up-circle-fill fa-2x"></i>
 					</div>
+					
 				</div>
 			</div>
+			
+		
+			<div class="modal">
+				<div class="modal_body" data-modal-name="${ post.id}">
+					<h1 class="modalText">MODAL</h1>
+					
+					<div class="modalDiv">
+						<h1>${post.id }</h1>
+						<h1>${post.content }</h1>
+					</div>
+					
+					<button type="button" class="btn-close-popup">모달 닫기</button>
+				</div>
+			</div>	
+		
 		</c:forEach>
-			
-			
-			
-			
+		
+		
 		</section>
 	</div>
 	
@@ -81,12 +95,27 @@
 			
 				let heart = $(this).data("postName");
 				
-				//alert(heart);
+				alert(heart);
 				
 				$("."+ heart).toggleClass( 'bi-heart' );
 				$("."+ heart).toggleClass( 'bi-heart-fill' );
+			})//좋아요 기능
+			
+			$(".btn-open-popup").on("click", function(){
+				$(".modal").css("display", "block");
+				let modalId = $(this).data("modalId");
+				let modalContent = $(this).data("modalContent");
+				
+				//$(".modalDiv").append($("<h1>").text(modalContent));
+				
+				
 			})
-		})
+			
+			$(".btn-close-popup").on("click", function(){
+				$(".modal").css("display", "none");
+				
+			})
+		})//jquery
 	</script>
 </body>
 </html>
