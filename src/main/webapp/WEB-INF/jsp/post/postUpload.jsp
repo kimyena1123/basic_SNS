@@ -33,7 +33,7 @@
 					
 					<div class="fileImgs">
 						<div class="inputImgs">
-							<img class="imgs" src="#">
+							<img class="imgs" src="#" id="testimg">
 							<img class="imgs" src="#">
 							<img class="imgs" src="#">
 							<img class="imgs" src="#">
@@ -57,8 +57,8 @@
 	
 	<script>
 		$(document).ready(function(){
-			 
-			let checkImgSelect = false;
+			
+			
 			
 			$("#uploadBtn").on("click", function(){
 				let post_content = $("#post_content").val();
@@ -68,8 +68,6 @@
 					alert("내용을 입력해주세요");
 					return;
 				}
-				
-				
 				
 				// 폼 객체 생성
 				let formData = new FormData();
@@ -84,6 +82,8 @@
 				//file을 선택안하면 $("#post_file")[0].files[0]은 undefined로 뜬다.
 				
 				if( $("#post_file")[0].files[0] == undefined){
+				//if( $("#post_file")[0].files[0] == null){
+				//if( $("#post_file")[0].files[0].lenght == 0){
 					formData.append('post_file', null);
 					
 				}else{
@@ -111,7 +111,38 @@
 					}
 				})//ajax
 			}) //upload btn
-		
+			
+			$("#selectBtn").on("click", function()
+			{
+				let file_img = $("#post_file").val();
+				//let testimg = $("#testimg");
+				
+				console.log('post_file 확인 >> ', $("#post_file")[0]);
+				console.log('post_file[0].files[0] >> ', $("#post_file")[0].files[0]);		
+				console.log('post_file[0].files[0] >> ', $("#post_file")[0].files[0].type);
+				console.log('post_file[0].files[0] >> ', $("#post_file")[0].files[0].name);
+				
+				
+				
+				$("#testimg").attr("src","123");
+				//console.log(file_img);
+			})
+			
+			$("#post_file").on("change", function(e){
+				
+				var file = e.target.files[0];
+				
+				var reader = new FileReader();
+				
+				
+				reader.onload = function(e){
+					$("#testimg").attr("src", e.target.result);
+				}
+				
+				reader.readAsDataURL(file);
+				
+			})
+			
 			
 		})//jquery 
 	</script>
