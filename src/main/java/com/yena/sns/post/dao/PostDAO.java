@@ -17,4 +17,6 @@ public interface PostDAO {
 			@Param("user_index") int user_index
 			,@Param("post_content") String post_content
 			,@Param("imagePath") String imagePath);
+	
+		
 }
