@@ -1,11 +1,10 @@
 package com.yena.sns.post;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,9 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.yena.sns.post.bo.PostBO;
-import com.yena.sns.post.model.Post;
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 @RequestMapping("/sns/post")
 @RestController
@@ -48,5 +45,7 @@ public class PostRestController {
 		
 		return result;
 	}
+	
+
 
 }

@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.yena.sns.post.bo.PostBO;
 import com.yena.sns.post.model.PostDetail;
 
+import jakarta.servlet.http.HttpSession;
+
 @RequestMapping("/sns/post")
 @Controller
 public class PostController {
@@ -21,9 +23,12 @@ public class PostController {
 
 	//메인페이지
 	@GetMapping() //기본 주소 localhost:port/sns/post
-	public String main(Model model) {
+	public String main(Model model
+			, HttpSession session) {
 		
-		List<PostDetail> postList = postBO.getMainInfo();
+		int userId = (Integer)session.getAttribute("session_index");
+		
+		List<PostDetail> postList = postBO.getMainInfo(userId);
 		
 		model.addAttribute("postList", postList);
 		

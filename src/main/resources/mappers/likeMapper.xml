@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.yena.sns.post.like.dao.LikeDAO">
+	<select id="sendLikeById"
+			parameterType="int"
+			resultType="com.yena.sns.post.like.model.Like">
+		SELECT
+			`id`
+			,`userId`
+			,`postId`
+			,`createdAt`
+		FROM
+			`like`
+		WHERE
+			postId = #{postId}
+	</select>
+	
+	<select id="sendLikeCount"
+			parameterType="int"
+			resultType="int">
+		SELECT
+			count(1)
+		FROM
+			`like`
+		WHERE
+			postId = #{postId}
+	</select>
+	
+	<select id="isHeartCheck"
+			parameterType="map"
+			resultType="int">
+		SELECT
+			count(1)
+		FROM
+			`like`
+		WHERE
+			userId = #{userId}
+		AND
+			postId = #{postId}		
+	</select>
+	
+	<insert id="insertLike"
+			parameterType="map">
+		INSERT INTO
+			`like`
+		(
+			`userId`
+			,`postId`
+			,`createdAt`
+		)
+		VALUE
+		(
+			#{userId}
+			,#{postId}
+			,now()
+		)
+	</insert>
+	
+	<delete id="destroyLike"
+			parameterType="map">
+		DELETE 
+		FROM
+			`like`
+		WHERE
+			postId = #{postId}
+		AND
+			userId = #{userId}
+	</delete>
+	
+</mapper>

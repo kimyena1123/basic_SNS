@@ -42,25 +42,47 @@
 				<div class="userInputs">
 					<div class="likeInfos">
 						<div class="icons">
-							<i class="heartClass bi bi-heart fa-2x heart${post.id }" data-post-name="heart${ post.id}"></i>
-							<!-- <i class="bi bi-heart-fill fa-2x"></i> -->
+						
+						<!-- 현재 로그인한 사람이 게시물을 눌렀는지 여부 -->
+						<c:choose>
+							<c:when test="${post.isHeart == 0 }">
+							<i class="heartClass bi bi-heart fa-2x" 
+								id="heart${post.id }"
+								data-post-id="${post.id }"></i>
+							</c:when>
+							
+							<c:otherwise>
+							<i class="bi bi-heart-fill fa-2x"></i>
+							</c:otherwise>
+							
+						</c:choose>
+						
 							<i class="bi bi-chat-square-dots fa-2x btn-open-popup" data-modal-Id="${ post.id}" data-modal-content="${post.content }"></i>
+							
 						</div>
-						<p class="likeCounts">좋아요 100개</p>
+						<!-- <p class="likeCounts">좋아요 ${post.like_count}개</p> -->
+						<p class="likeCounts">좋아요 ${post.likeCount}개</p>
 					</div>
 					
 					<div class="userPostUpload">
 						<div class="comment">
-							<span class="user_id">user_id</span>
+							<span class="user_id">${post.user_name }</span>
 							<p class="post_comment">${post.content }</p>
+							
 						</div>
 						<p class="uploadTime">등록일: <fmt:formatDate value="${post.createdAt }" pattern="yyyy년 MM월 dd일" /></p>
 					</div>
 					
 					<div class="commentInputs">
+					
 						<i class="bi bi-envelope-open-fill fa-2x"></i>
-						<input type="text" id="comment_comment" name="comment_comment" placeholder="댓글달기">
-						<i class="bi bi-arrow-up-circle-fill fa-2x"></i>
+						<input type="text"
+								name="comment_comment"
+								id="commentInput${post.id }"
+								placeholder="댓글달기">
+						<i class="bi bi-arrow-up-circle-fill fa-2x createComment" 
+							data-post-id="${post.id }"></i>
+					
 					</div>
 					
 				</div>
@@ -78,7 +100,7 @@
 					
 					<button type="button" class="btn-close-popup">모달 닫기</button>
 				</div>
-			</div>	
+			</div>
 		
 		</c:forEach>
 		
@@ -87,19 +109,60 @@
 	</div>
 	
 	<script>
+	
+	
 		$(document).ready(function(){
 			
 			$(".heartClass").on("click", function(){
-			
-				//클래스가 heart1, heart2, heart3 ... 
-			
-				let heart = $(this).data("postName");
+				let postId = $(this).data("postId");
+				let heart = $("#heart" + postId);
 				
-				alert(heart);
+				heart.toggleClass("bi-heart");
+				heart.toggleClass("bi-heart-fill");
 				
-				$("."+ heart).toggleClass( 'bi-heart' );
-				$("."+ heart).toggleClass( 'bi-heart-fill' );
-			})//좋아요 기능
+				console.log($(this).hasClass("bi-heart-fill"))
+				//true일 때 insert를 해야한다.
+				//false일 때 delete를 해야한다.
+				
+				if($(this).hasClass("bi-heart-fill")){
+					$.ajax({
+						type:'get',
+						url: '/sns/post/like',
+						data: {
+							"postId": postId,
+						},
+						success:function(res){
+							if(res.result){
+								alert("좋아요 추가 성공");
+							}else{
+								alert("좋아요 추가 실패");
+							}
+						},
+						error:function(err){
+							alert("좋아요 추가 에러");
+						}
+					})//like ajax
+				}else{
+					$.ajax({
+						type:'get',
+						url: '/sns/post/unlike',
+						data: {
+							"postId": postId,
+						},
+						success:function(res){
+							if(res.result){
+								alert("좋아요 취소 성공");
+							}else{
+								alert("좋아요 취소 실패")
+							}
+						},
+						error:function(err){
+							alert("좋아요 추가 에러");
+						}
+					})
+				}
+				
+			});//좋아요 기능
 			
 			$(".btn-open-popup").on("click", function(){
 				$(".modal").css("display", "block");
@@ -109,12 +172,43 @@
 				//$(".modalDiv").append($("<h1>").text(modalContent));
 				
 				
-			})
+			});
 			
 			$(".btn-close-popup").on("click", function(){
 				$(".modal").css("display", "none");
 				
-			})
+			});
+			
+			$(".createComment").on("click", function(){
+				//postId, content를 넘겨줘야 한다.
+				let postId = $(this).data("postId");
+				let comment = $("#commentInput" + postId).val();
+				
+				//$(this).siblings()
+				//$(this).prev()
+				
+				$.ajax({
+					type: 'post',
+					url:'/sns/post/comment/create',
+					data: {
+						"comment": comment,
+						"postId": postId,
+					},
+					success:function(res){
+						if(res.result){
+							alert('댓글 달기 성공');
+						}else{
+							alert("댓글 달기 실패");
+						}
+					},
+					error:function(err){
+						alert("댓글 달기 에러")
+					}
+				})
+			});//댓글달기
+			
+			
+			
 		})//jquery
 	</script>
 </body>

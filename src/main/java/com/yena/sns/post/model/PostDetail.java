@@ -15,9 +15,16 @@ public class PostDetail {
 	//user 테이블에 대한 정보
 	private String user_name;
 
+	//like 테이블에 대한 정보 => 방식1
+	private int like_count;
 	
-	//getters and setters
+	//like 테이블에 대한 정보 => 방식2
+	private int likeCount;
+	private int isHeart;
 
+
+
+	//getters and setters
 	public int getId() {
 		return id;
 	}
@@ -73,6 +80,32 @@ public class PostDetail {
 	public void setUser_name(String user_name) {
 		this.user_name = user_name;
 	}
+
+	public int getLike_count() {
+		return like_count;
+	}
+
+	public void setLike_count(int like_count) {
+		this.like_count = like_count;
+	}
+
+	
+	public int getLikeCount() {
+		return likeCount;
+	}
+
+	public void setLikeCount(int likeCount) {
+		this.likeCount = likeCount;
+	}
+
+	public int getIsHeart() {
+		return isHeart;
+	}
+
+	public void setIsHeart(int isHeart) {
+		this.isHeart = isHeart;
+	}
+
 
 	
 	
