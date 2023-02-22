@@ -1,6 +1,10 @@
 package com.yena.sns.post.model;
 
 import java.util.Date;
+import java.util.List;
+
+import com.yena.sns.post.comment.model.Comment;
+import com.yena.sns.post.comment.model.CommentDetail;
 
 public class PostDetail {
 	
@@ -21,6 +25,10 @@ public class PostDetail {
 	//like 테이블에 대한 정보 => 방식2
 	private int likeCount;
 	private int isHeart;
+	
+	//comment 테이블에 대한 정보
+	//private List<Comment> commentList;
+	private List<CommentDetail> commentList;
 
 
 
@@ -106,7 +114,13 @@ public class PostDetail {
 		this.isHeart = isHeart;
 	}
 
+	public List<CommentDetail> getCommentList() {
+		return commentList;
+	}
 
-	
+	public void setCommentList(List<CommentDetail> commentList) {
+		this.commentList = commentList;
+	}
+
 	
 }

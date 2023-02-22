@@ -8,9 +8,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.yena.sns.common.FileManagerService;
+import com.yena.sns.post.comment.bo.CommentBO;
+import com.yena.sns.post.comment.model.CommentDetail;
 import com.yena.sns.post.dao.PostDAO;
 import com.yena.sns.post.like.bo.LikeBO;
-import com.yena.sns.post.like.model.Like;
 import com.yena.sns.post.model.Post;
 import com.yena.sns.post.model.PostDetail;
 import com.yena.sns.user.bo.UserBO;
@@ -26,6 +27,9 @@ public class PostBO {
 	
 	@Autowired
 	private LikeBO likeBO;
+	
+	@Autowired
+	private CommentBO commentBO;
 	
 	//메인 페이지
 	public List<PostDetail> getMainInfo(int userId){
@@ -64,6 +68,12 @@ public class PostBO {
 			
 			int isHeartCHeck = likeBO.isHeartCheck(userId, post.getId());
 			postDetail.setIsHeart(isHeartCHeck);
+			
+			//comment 테이블
+			//post 태이블의 id를 보내준다.
+			//List<Comment> commentList = commentBO.selectCommentList(post.getId());
+			List<CommentDetail> commentList = commentBO.selectCommentList(post.getId());
+			postDetail.setCommentList(commentList);
 			
 			postDetailList.add(postDetail);
 		}

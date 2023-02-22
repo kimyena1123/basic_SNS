@@ -46,13 +46,13 @@
 						<!-- 현재 로그인한 사람이 게시물을 눌렀는지 여부 -->
 						<c:choose>
 							<c:when test="${post.isHeart == 0 }">
-							<i class="heartClass bi bi-heart fa-2x" 
+							<i class="bi bi-heart fa-2x noHeart" 
 								id="heart${post.id }"
 								data-post-id="${post.id }"></i>
 							</c:when>
 							
 							<c:otherwise>
-							<i class="bi bi-heart-fill fa-2x"></i>
+							<i class="bi bi-heart-fill fa-2x yesHeart"></i>
 							</c:otherwise>
 							
 						</c:choose>
@@ -69,6 +69,9 @@
 							<span class="user_id">${post.user_name }</span>
 							<p class="post_comment">${post.content }</p>
 							
+							<c:forEach var="comment" items="${post.commentList }">
+								<b style="color:blue">${comment.user_name }</b><p style="color:red">${comment.comment }</p>
+							</c:forEach>
 						</div>
 						<p class="uploadTime">등록일: <fmt:formatDate value="${post.createdAt }" pattern="yyyy년 MM월 dd일" /></p>
 					</div>
@@ -113,18 +116,22 @@
 	
 		$(document).ready(function(){
 			
-			$(".heartClass").on("click", function(){
+			$(".bi-heart").on("click", function(){
 				let postId = $(this).data("postId");
 				let heart = $("#heart" + postId);
 				
-				heart.toggleClass("bi-heart");
-				heart.toggleClass("bi-heart-fill");
+				//heart.toggleClass("bi-heart");
+				//heart.toggleClass("bi-heart-fill");
 				
-				console.log($(this).hasClass("bi-heart-fill"))
+				//console.log($(this).hasClass("bi-heart-fill"))
 				//true일 때 insert를 해야한다.
 				//false일 때 delete를 해야한다.
 				
-				if($(this).hasClass("bi-heart-fill")){
+				console.log("noheart(비어있는 상태) >> " , $(this).hasClass("noHeart"));
+				console.log("yesheart(빨간하트) >> ", $(this).hasClass("yesHeart"));
+				
+				//아이콘 클래스가 bi-heart-fill이라면 insert
+				if($(this).hasClass("noHeart")){
 					$.ajax({
 						type:'get',
 						url: '/sns/post/like',
@@ -134,6 +141,7 @@
 						success:function(res){
 							if(res.result){
 								alert("좋아요 추가 성공");
+								location.reload();
 							}else{
 								alert("좋아요 추가 실패");
 							}
@@ -152,6 +160,7 @@
 						success:function(res){
 							if(res.result){
 								alert("좋아요 취소 성공");
+								location.reload();
 							}else{
 								alert("좋아요 취소 실패")
 							}
@@ -161,6 +170,7 @@
 						}
 					})
 				}
+				
 				
 			});//좋아요 기능
 			
@@ -197,6 +207,7 @@
 					success:function(res){
 						if(res.result){
 							alert('댓글 달기 성공');
+							location.reload();
 						}else{
 							alert("댓글 달기 실패");
 						}
