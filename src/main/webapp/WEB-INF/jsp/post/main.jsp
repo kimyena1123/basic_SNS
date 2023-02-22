@@ -52,7 +52,10 @@
 							</c:when>
 							
 							<c:otherwise>
-							<i class="bi bi-heart-fill fa-2x yesHeart"></i>
+							<i class="bi bi-heart-fill fa-2x yesHeart"
+								id="heart${post.id }"
+								data-post-id=${post.id }></i>
+								
 							</c:otherwise>
 							
 						</c:choose>
@@ -131,48 +134,51 @@
 				console.log("yesheart(빨간하트) >> ", $(this).hasClass("yesHeart"));
 				
 				//아이콘 클래스가 bi-heart-fill이라면 insert
-				if($(this).hasClass("noHeart")){
-					$.ajax({
-						type:'get',
-						url: '/sns/post/like',
-						data: {
-							"postId": postId,
-						},
-						success:function(res){
-							if(res.result){
-								alert("좋아요 추가 성공");
-								location.reload();
-							}else{
-								alert("좋아요 추가 실패");
-							}
-						},
-						error:function(err){
-							alert("좋아요 추가 에러");
-						}
-					})//like ajax
-				}else{
-					$.ajax({
-						type:'get',
-						url: '/sns/post/unlike',
-						data: {
-							"postId": postId,
-						},
-						success:function(res){
-							if(res.result){
-								alert("좋아요 취소 성공");
-								location.reload();
-							}else{
-								alert("좋아요 취소 실패")
-							}
-						},
-						error:function(err){
-							alert("좋아요 추가 에러");
-						}
-					})
-				}
 				
+				$.ajax({
+					type:'get',
+					url: '/sns/post/like',
+					data: {
+						"postId": postId,
+					},
+					success:function(res){
+						if(res.result){
+							location.reload();
+						}else{
+							alert("좋아요 추가 실패");
+						}
+					},
+					error:function(err){
+						alert("좋아요 추가 에러");
+					}
+				})//like ajax
+			
 				
 			});//좋아요 기능
+			
+			//좋아요 취소 기능
+			$(".bi-heart-fill").on("click", function(){
+				let postId = $(this).data("postId");
+				
+				$.ajax({
+					type:'get',
+					url: '/sns/post/unlike',
+					data: {
+						"postId": postId,
+					},
+					success:function(res){
+						if(res.result){
+							
+							location.reload();
+						}else{
+							alert("좋아요 취소 실패")
+						}
+					},
+					error:function(err){
+						alert("좋아요 추가 에러");
+					}
+				}) // unlike ajax
+			}) // bi-heart-fill 
 			
 			$(".btn-open-popup").on("click", function(){
 				$(".modal").css("display", "block");

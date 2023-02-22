@@ -17,6 +17,7 @@ header{
 	background-color: #EDEDED;
 	display: flex;
 	justify-content: space-between;
+	float: inherit;
 }
 header .logo{
 	display: flex;
