@@ -57,7 +57,31 @@
 		)
 	</insert>
 	
-	
+	<select id="showPost"
+			parameterType="int"
+			resultType="com.yena.sns.post.model.Post">
+		SELECT
+			`id`
+			,`userId`
+			,`content`
+			,`img_src`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`post`
+		WHERE
+			`id` = #{id}
+	</select>
+
+	<delete id="deletePost"
+			parameterType="int">
+		DELETE FROM 
+			`post`
+		WHERE
+			`id` = #{postId}	
+		AND
+			`userId` = #{userId}	
+	</delete>
 
 	
 </mapper>

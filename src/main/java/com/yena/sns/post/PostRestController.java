@@ -1,6 +1,7 @@
 package com.yena.sns.post;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.yena.sns.post.bo.PostBO;
+import com.yena.sns.post.model.Post;
 
 import jakarta.servlet.http.HttpSession;
 @RequestMapping("/sns/post")
@@ -46,6 +48,29 @@ public class PostRestController {
 		return result;
 	}
 	
+	//메인페이지에 올라와 있는 게시물 삭제
+	//파일(사진), 댓글, 게시물 정보 다 삭제해야 함.
+	//삭제될 대상의 id 받아오기(post테이블의 id)
+	@GetMapping("postDelete")
+	public Map<String, Boolean> deletePost(
+			@RequestParam("postId") int postId
+			,HttpSession session) {
+		
+		int userId = (Integer)session.getAttribute("session_index");
+		
+		int count = postBO.postDelete(postId, userId);
+		
+		Map<String, Boolean> result = new HashMap<>();
+		
+		if(count == 1) {
+			result.put("result", true);
+		}else {
+			result.put("result", false);
+		}
+		
+		return result;
+	}
+
 
 
 }

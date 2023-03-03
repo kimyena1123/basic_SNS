@@ -98,4 +98,41 @@ public class PostBO {
 		
 	}
 	
+	//게시물 삭제
+	public int postDelete(int postId, int userId) {
+		
+		//id를 가지고 한 행에 대한 post 테이블 정보를 가져오기 때문에
+		//Post를 리턴한다.
+		Post post = postDAO.showPost(postId);
+		
+		//대상 post 삭제
+		int count = postDAO.deletePost(postId, userId);
+		
+		if(count == 1) {
+		
+			System.out.println("file 값 확인 >>> "+ post.getImg_src());
+			
+			if(post.getImg_src() != null){	//파일사진이 있다면 파일 삭제		
+				FileManagerService.removeFile(post.getImg_src());
+			}
+			
+			//대상 post 삭제 => 좋아요와 댓글 삭제
+			//delete from `comment` where id = postId;
+			//delete from `like` where id = postId;
+			
+			//post와 관계된 댓글 삭제
+			//싦행될 행의 개수. 댓글은 0개일수도 100개일 수도 있다. 
+			//리턴되는 값은 몇 개씩 실행될 수 없으니까 기능만 수행하게 한다.
+			commentBO.deletePostByPostId(postId);
+			
+			//좋아요 삭제
+			likeBO.deleteLikeByPostId(postId);
+			
+		}
+		
+		return count;
+	}
+	
+	
+	
 }

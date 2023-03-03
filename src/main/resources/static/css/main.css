@@ -14,7 +14,7 @@
 section{
 	width: 100%;
 	height: 100%;
-	/*overflow-y: scroll;*/
+	overflow-y: scroll;
 }
 section .mainBox{
 	width: 30%;
@@ -146,6 +146,38 @@ section .userInputs{
 }
 
 .modal_body{
+	border: 2px solid red;
+	position: absolute;
+	top: 30%;
+	left: 31%;
+	width: 700px;
+	height: 400px;
+	padding: 40px;
+	text-align: center;
+	
+	background-color: rgba(255,255,255);
+	border-radius: 10px;
+	box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+	transform: translateX(-50%) translageY(-50%);
+}
+
+
+.deleteModal{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	
+	display: none;
+	
+	background-color: rgba(0,0,0,0.1);
+}
+.moddeleteModalal.show{
+	display: block;
+}
+
+.deleteModal_body{
 	border: 2px solid red;
 	position: absolute;
 	top: 30%;

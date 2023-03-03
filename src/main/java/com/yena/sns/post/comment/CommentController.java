@@ -1,6 +1,7 @@
 package com.yena.sns.post.comment;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.yena.sns.post.comment.bo.CommentBO;
+import com.yena.sns.post.model.Post;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -40,4 +42,7 @@ public class CommentController {
 		}
 		return result;
 	}
+	
+	
+	
 }

@@ -30,4 +30,7 @@ public interface LikeDAO {
 	public int destroyLike(
 			@Param("userId") int userId
 			,@Param("postId") int postId);
+	
+	//postId를 기반으로 해당 게시물의 좋아요 삭제
+	public int deleteLikeByPostId(@Param("postId") int postId);
 }

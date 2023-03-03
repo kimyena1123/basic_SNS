@@ -45,4 +45,27 @@
 	</select>
 	
 	
+	<delete id="deletePostByPostId"
+			parameterType="int">
+		DELETE FROM
+			`comment`
+		WHERE
+			`postId` = #{postId}
+	</delete>
+	
+	
+	<select id="showComments"
+			parameterType="int"
+			resultType="com.yena.sns.post.comment.model.Comment">
+		SELECT
+			`userId`
+			,`postId`
+			,`comment`
+			,`createdAt`
+			,`updatedAt`
+		FROM 
+			`comment`
+		WHERE 
+			`postId` = #{postId}
+	</select>
 </mapper>

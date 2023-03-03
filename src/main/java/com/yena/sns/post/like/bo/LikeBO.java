@@ -39,4 +39,9 @@ public class LikeBO {
 	public int deleteLike(int userId, int postId) {
 		return likeDAO.destroyLike(userId, postId);
 	}
+	
+	//postId를 기반으로 해당 행의 좋아요 삭제
+	public int deleteLikeByPostId(int postId) {
+		return likeDAO.deleteLikeByPostId(postId);
+	}
 }

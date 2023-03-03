@@ -32,7 +32,10 @@
 						<p>${post.user_name }</p>
 					</div>
 					
-					<i class="bi bi-three-dots-vertical fa-2x"></i>
+					<%-- 로그인한 userId와 해당 게시글의 작성자 userId가 일치하는 경우만 more-btn을 보여주게 한다. --%>
+					<c:if test="${session_index eq post.userId }">
+						<div class="more-btn" data-post-id="${post.id }"><i class="bi bi-three-dots-vertical fa-2x deletePostBtn"></i></div>
+					</c:if>
 				</div>
 				
 				<div class="postImgs">
@@ -60,7 +63,7 @@
 							
 						</c:choose>
 						
-							<i class="bi bi-chat-square-dots fa-2x btn-open-popup" data-modal-Id="${ post.id}" data-modal-content="${post.content }"></i>
+							<i class="bi bi-chat-square-dots fa-2x btn-open-popup" data-post-id="${post.id }"></i>
 							
 						</div>
 						<!-- <p class="likeCounts">좋아요 ${post.like_count}개</p> -->
@@ -73,7 +76,7 @@
 							<p class="post_comment">${post.content }</p>
 							
 							<c:forEach var="comment" items="${post.commentList }">
-								<b style="color:blue">${comment.user_name }</b><p style="color:red">${comment.comment }</p>
+								<b style="color:blue" data-post-id="${post.id }" class="showCommentUser"${post.id }>${comment.user_name }</b><p data-post-id="${post.id }"class="showComment"${post.id }>${comment.comment }</p>
 							</c:forEach>
 						</div>
 						<p class="uploadTime">등록일: <fmt:formatDate value="${post.createdAt }" pattern="yyyy년 MM월 dd일" /></p>
@@ -94,23 +97,36 @@
 				</div>
 			</div>
 			
+		</c:forEach>
+		
 		
 			<div class="modal">
+			
 				<div class="modal_body" data-modal-name="${ post.id}">
 					<h1 class="modalText">MODAL</h1>
 					
 					<div class="modalDiv">
-						<h1>${post.id }</h1>
-						<h1>${post.content }</h1>
+						
+						<div class="bringComment">
+							
+						</div>
 					</div>
 					
 					<button type="button" class="btn-close-popup">모달 닫기</button>
 				</div>
+				
 			</div>
-		
-		</c:forEach>
-		
-		
+			
+			
+			<div class="deleteModal">
+			
+				<div class="deleteModal_body" data-modal-name="${ post.id}" style="">
+					<a href="#" id="deleteAtag">삭제하기</a>
+					
+					<button type="button" class="deletePostBtnCancel">모달 닫기</button>
+				</div>
+				
+			</div>
 		</section>
 	</div>
 	
@@ -119,21 +135,79 @@
 	
 		$(document).ready(function(){
 			
+			$(".bi-chat-square-dots").on("click", function(){
+				let postId = $(this).data("postId");
+				
+				
+			});
+			
+			$(".more-btn").on("click", function(){
+				//해당 more-btn 태그에 있는 post-id를 모달의 a태그에 넣는다.
+				let postId = $(this).data("postId");
+				
+				//data-post-id=""
+				$("#deleteAtag").data("post-id", postId);
+			});
+			
+			$("#deleteAtag").on("click", function(){
+				let postId = $(this).data("postId");
+				
+				$.ajax({
+					type:'get',
+					url: '/sns/post/postDelete',
+					data:{
+						"postId": postId,
+					},
+					success:function(res){
+						if(res.result){
+							alert("삭제 성공");
+							location.reload();
+						}else{
+							alert("삭제 실패");
+						}
+					},
+					error:function(err){
+						alert("게시물 삭제 에러");
+					}
+				})
+			});
+			
+			$(".createComment").on("click", function(){
+				//postId, content를 넘겨줘야 한다.
+				
+				let postId = $(this).data("postId");
+				let comment = $("#commentInput" + postId).val();
+				
+				//$(this).siblings()
+				//$(this).prev()
+				
+				$.ajax({
+					type: 'post',
+					url:'/sns/post/comment/create',
+					data: {
+						"comment": comment,
+						"postId": postId,
+					},
+					success:function(res){
+						if(res.result){
+							alert('댓글 달기 성공');
+							location.reload();
+						}else{
+							alert("댓글 달기 실패");
+						}
+					},
+					error:function(err){
+						alert("댓글 달기 에러")
+					}
+				})
+			});//댓글달기
+			
 			$(".bi-heart").on("click", function(){
 				let postId = $(this).data("postId");
 				let heart = $("#heart" + postId);
 				
-				//heart.toggleClass("bi-heart");
-				//heart.toggleClass("bi-heart-fill");
-				
-				//console.log($(this).hasClass("bi-heart-fill"))
-				//true일 때 insert를 해야한다.
-				//false일 때 delete를 해야한다.
-				
 				console.log("noheart(비어있는 상태) >> " , $(this).hasClass("noHeart"));
 				console.log("yesheart(빨간하트) >> ", $(this).hasClass("yesHeart"));
-				
-				//아이콘 클래스가 bi-heart-fill이라면 insert
 				
 				$.ajax({
 					type:'get',
@@ -184,47 +258,19 @@
 				$(".modal").css("display", "block");
 				let modalId = $(this).data("modalId");
 				let modalContent = $(this).data("modalContent");
-				
-				//$(".modalDiv").append($("<h1>").text(modalContent));
-				
-				
 			});
 			
 			$(".btn-close-popup").on("click", function(){
 				$(".modal").css("display", "none");
-				
 			});
 			
-			$(".createComment").on("click", function(){
-				//postId, content를 넘겨줘야 한다.
-				let postId = $(this).data("postId");
-				let comment = $("#commentInput" + postId).val();
-				
-				//$(this).siblings()
-				//$(this).prev()
-				
-				$.ajax({
-					type: 'post',
-					url:'/sns/post/comment/create',
-					data: {
-						"comment": comment,
-						"postId": postId,
-					},
-					success:function(res){
-						if(res.result){
-							alert('댓글 달기 성공');
-							location.reload();
-						}else{
-							alert("댓글 달기 실패");
-						}
-					},
-					error:function(err){
-						alert("댓글 달기 에러")
-					}
-				})
-			});//댓글달기
+			$(".deletePostBtn").on("click", function(){
+				$(".deleteModal").css("display", "block");
+			});
 			
-			
+			$(".deletePostBtnCancel").on("click", function(){
+				$(".deleteModal").css("display", "none");
+			});
 			
 		})//jquery
 	</script>
